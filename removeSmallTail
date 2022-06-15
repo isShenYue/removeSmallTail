@@ -1,0 +1,27 @@
+// ==UserScript==
+// @name         复制文本小尾巴去除
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  B站专栏、csdn复制文本小尾巴去除
+// @author       申月
+// @match        *://blog.csdn.net/*
+// @match        *://www.bilibili.com/read/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=bilibili.com
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    console.log("去除小尾巴工具已启用！！！");
+    var domain = window.location.host;
+    if(domain=="blog.csdn.net"){
+        csdn.copyright.textData=""
+    }else if(domain=="www.bilibili.com"){
+        HTMLDivElement.prototype.realAddEventListener = HTMLAnchorElement.prototype.addEventListener;
+        HTMLDivElement.prototype.addEventListener = function(a,b,c){
+            if(a =="copy") return;
+            return this.realAddEventListener(a,b,c);
+        };
+    }
+    // Your code here...
+})();
